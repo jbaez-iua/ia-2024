@@ -1,8 +1,15 @@
 ---
 marp: true
-theme: default
+theme: gaia
 paginate: true
 ---
+
+<style>
+img[alt~="center"] {
+  display: block;
+  margin: 0 auto;
+}
+</style>
 
 # Resolución de Problemas Mediante Búsqueda
 ## Capítulo 3
@@ -60,12 +67,12 @@ Nota: esto es resolución de problemas offline; la solución se ejecuta "a ojos 
 
 # Mapa de rumania
 
-![Mapa de Rumania](./img/rumania-buc.png)
+![center w:700](./img/rumania-buc.png)
 
 ---
 ## Mapa de rumania simplificado
 
-![Mapa simplificado](./img/rumania-simplificado.png)
+![center](./img/rumania-simplificado.png)
 
 ---
 
@@ -272,7 +279,7 @@ Las estrategias no informadas usan solo la información disponible en la definic
 - Expandir el nodo no expandido menos profundo
 - Implementación: la frontera es una cola FIFO, es decir, los nuevos sucesores van al final
 
-![Búsqueda en anchura](https://i.imgur.com/8m0n3VQ.png)
+![Búsqueda en anchura](img/anchura-bfs.png)
 
 ---
 
@@ -287,18 +294,37 @@ El espacio es el gran problema; puede generar fácilmente nodos a 100MB/seg, as�
 
 ---
 
+# Tabla de busqueda a lo ancho comparativa
+
+![center](img/tabla-bfs-memoria.png)
+
+
+---
+
+# Conclusiones
+
+- Para la busqueda en ancho es un problema más grande los requisitos de memoria para la búsqueda a lo ancho que el tiempo de ejecución.
+- En general, los problemas de búsqueda de complejidad exponencial no pueden resolverse por métodos sin información salvo casos pequeños.
+
+---
+
 # Búsqueda de costo uniforme
 
 - Expandir el nodo no expandido de menor costo
 - Implementación: frontera = cola ordenada por costo del camino, el más bajo primero
 - Equivalente a búsqueda en anchura si todos los costos de paso son iguales
 
-Propiedades:
+
+---
+
+## Busqueda de costo uniforme: propiedades
+
 - Completa: Sí, si el costo del paso ≥ ε
 - Tiempo: # de nodos con g ≤ costo de la solución óptima, O(b^(C*/ε))
   donde C* es el costo de la solución óptima
 - Espacio: # de nodos con g ≤ costo de la solución óptima, O(b^(C*/ε))
 - Óptima: Sí—los nodos se expanden en orden creciente de g(n)
+
 
 ---
 
@@ -307,11 +333,14 @@ Propiedades:
 - Expandir el nodo no expandido más profundo
 - Implementación: frontera = cola LIFO, es decir, poner los sucesores al frente
 
-![Búsqueda en profundidad](https://i.imgur.com/8m0n3VQ.png)
 
 ---
 
-# Propiedades de la búsqueda en profundidad
+![w:640 center](img/profundidad-dfs.png)
+
+---
+
+## Búsqueda en profundidad: Propiedades
 
 - Completa: No: falla en espacios de profundidad infinita, espacios con bucles
   - Modificar para evitar estados repetidos a lo largo del camino ⇒ completa en espacios finitos
@@ -324,13 +353,13 @@ Propiedades:
 
 # Búsqueda en profundidad limitada
 
-= búsqueda en profundidad con límite de profundidad l, es decir, los nodos a profundidad l no tienen sucesores
+Es una búsqueda en profundidad con límite de profundidad 1, es decir, los nodos a profundidad 1 no tienen sucesores
 
-```python
+```pseudocode
 función Búsqueda-Profundidad-Limitada(problema, límite) devuelve solución/falla/corte
   DPL-Recursiva(Crear-Nodo(Estado-Inicial[problema]), problema, límite)
 
-función DPL-Recursiva(nodo, problema, límite) devuelve solución/falla/corte
+función BPL-Recursiva(nodo, problema, límite) devuelve solución/falla/corte
   ocurrió-corte? ← falso
   si Prueba-Meta(problema, Estado[nodo]) entonces devolver nodo
   sino si Profundidad[nodo] = límite entonces devolver corte
@@ -343,17 +372,26 @@ función DPL-Recursiva(nodo, problema, límite) devuelve solución/falla/corte
 
 ---
 
+## Algoritmo BPL
+
+![center](image.png)
+
+---
+
 # Búsqueda en profundidad iterativa
 
 ```python
 función Búsqueda-Profundidad-Iterativa(problema) devuelve una solución
   entradas: problema, un problema
+
   para profundidad ← 0 hasta ∞ hacer
     resultado ← Búsqueda-Profundidad-Limitada(problema, profundidad)
     si resultado ≠ corte entonces devolver resultado
 ```
 
-![Búsqueda en profundidad iterativa](https://i.imgur.com/8m0n3VQ.png)
+---
+
+![h:600 center](img/busqueda-iterativa-dfs.png)
 
 ---
 
@@ -366,6 +404,8 @@ función Búsqueda-Profundidad-Iterativa(problema) devuelve una solución
 
 Se puede modificar para explorar el árbol de costo uniforme
 
+---
+
 Comparación numérica para b = 10 y d = 5, solución en la hoja más a la derecha:
 - N(BPI) = 50 + 400 + 3.000 + 20.000 + 100.000 = 123.450
 - N(BA) = 10 + 100 + 1.000 + 10.000 + 100.000 + 999.990 = 1.111.100
@@ -375,13 +415,31 @@ BA se puede modificar para aplicar la prueba de meta cuando se genera un nodo
 
 ---
 
-# Resumen de algoritmos de búsqueda no informada
+# Busqueda bidireccional
 
-![Resumen de búsqueda no informada](https://i.imgur.com/8m0n3VQ.png)
+Los algoritmos anterioes parten de un estado inicial y llegan a otro buscando multiples estados meta posibles. 
+
+Un enfoque alternativo es buscar bidireccionalmente, desde el estado inicial en adelante y al mismo tiempo, desde el estado objetivo hacia atras, esperando que ambas busquedas se encuentren.
 
 ---
 
-# Búsqueda en grafos
+# Busqueda bidireccional
+
+![center](img/busqueda-bidir.png)
+
+---
+
+![center](img/bidirec-algoritmo.png)
+
+---
+
+## Resumen de algoritmos de búsqueda no informada
+
+![center](img/tabla-resumen.png)
+
+---
+
+### Búsqueda en grafos: Algoritmo general
 
 ```python
 función Búsqueda-Grafo(problema, frontera) devuelve una solución, o falla
@@ -396,16 +454,27 @@ función Búsqueda-Grafo(problema, frontera) devuelve una solución, o falla
       frontera ← InsertarTodos(Expandir(nodo, problema), frontera)
 ```
 
+El conjunto cerrado puede ser interpretado como una hash table para comprobar estados repetidos eficientemente.
+
+---
+# Estartegia de Busqueda informada (Heurística)
+
+La busqueda de estrategia informada se basa en usar conocimiento especifico al dominio del problema sobre la ubicacion de las metas. 
+
+Basicamente, pistas sobre el camino a la solucion. Estas pistas vienen en forma de **funciones heurísticas**.
+
+
+*h(n)* = costo estimado del camino mas corto del estado en el nodo *n* al nodo objetivo.
+
 ---
 
-# Búsqueda del mejor primero
+### Búsqueda del mejor primero (best first search)
 
 Idea: usar una función de evaluación para cada nodo
-- estimación de "deseabilidad"
+- Estimación de "deseabilidad"
 ⇒ Expandir el nodo no expandido más deseable
 
-Implementación:
-- frontera es una cola ordenada en orden decreciente de deseabilidad
+Implementación: **frontera** es una cola ordenada en orden decreciente de deseabilidad
 
 Casos especiales:
 1. búsqueda avara
@@ -413,14 +482,18 @@ Casos especiales:
 
 ---
 
-# Búsqueda avara
+### Búsqueda avara (Greedy BFS)
 
 Función de evaluación h(n) (heurística) = estimación del costo desde n hasta la meta más cercana
+
 Por ejemplo, hDLR(n) = distancia en línea recta desde n hasta Bucarest
 
 La búsqueda avara expande el nodo que parece estar más cerca de la meta
 
-![Ejemplo de búsqueda avara](https://i.imgur.com/8m0n3VQ.png)
+---
+
+
+![h:600 center](img/greedy-bfs.png)
 
 ---
 
@@ -443,6 +516,8 @@ Función de evaluación f(n) = g(n) + h(n)
 - h(n) = costo estimado hasta la meta desde n
 - f(n) = costo total estimado del camino a través de n hasta la meta
 
+---
+
 La búsqueda A* usa una heurística admisible
 - es decir, h(n) ≤ h*(n) donde h*(n) es el costo real desde n.
 - (También se requiere h(n) ≥ 0, así que h(G) = 0 para cualquier meta G.)
@@ -453,12 +528,13 @@ Teorema: La búsqueda A* es óptima
 
 ---
 
-# Ejemplo de búsqueda A*
-
-![Ejemplo de búsqueda A*](https://i.imgur.com/8m0n3VQ.png)
+![h:600 center](img/a-star-search-1.png)
 
 ---
 
+![h:600 center](img/a-star-search-2.png)
+
+---
 # Optimalidad de A* (prueba estándar)
 
 Supongamos que se ha generado alguna meta subóptima G2 y está en la cola. Sea n un nodo no expandido en un camino más corto hacia una meta óptima G1.
@@ -478,7 +554,9 @@ Lema: A* expande nodos en orden de f creciente
 Gradualmente agrega "contornos-f" de nodos (cf. búsqueda en anchura agrega capas)
 El contorno i tiene todos los nodos con f = fi, donde fi < fi+1
 
-![Contornos A*](https://i.imgur.com/8m0n3VQ.png)
+---
+
+![h:600 center](img/a-star-contornos.png)
 
 ---
 
@@ -514,10 +592,12 @@ Por ejemplo, para el 8-puzzle:
 - h1(n) = número de fichas mal ubicadas
 - h2(n) = distancia de Manhattan total (es decir, número de cuadrados desde la ubicación deseada de cada ficha)
 
-![8-puzzle](https://i.imgur.com/8m0n3VQ.png)
-
 h1(S) = 6
 h2(S) = 4+0+3+3+1+0+2+1 = 14
+
+---
+
+![center](img/8-puzzle-manhattan.png)
 
 ---
 
@@ -530,12 +610,15 @@ Costos de búsqueda típicos:
   - BPI = 3.473.941 nodos
   - A*(h1) = 539 nodos
   - A*(h2) = 113 nodos
+
+---
+
 - d = 24
   - BPI ≈ 54.000.000.000 nodos
   - A*(h1) = 39.135 nodos
   - A*(h2) = 1.641 nodos
 
-Dadas cualesquiera heurísticas admisibles ha, hb, h(n) = max(ha(n), hb(n)) también es admisible y domina a ha, hb
+Dadas cualesquiera heurísticas admisibles *ha*, *hb*, *h(n)* = max(*ha(n)*, *hb(n)*) también es admisible y domina a *ha*, *hb*.
 
 ---
 
@@ -557,7 +640,11 @@ Ejemplo bien conocido: problema del viajante de comercio (TSP)
 
 El árbol de expansión mínima se puede calcular en O(n^2) y es una cota inferior del recorrido (abierto) más corto
 
-![Ejemplo de TSP](https://i.imgur.com/8m0n3VQ.png)
+---
+
+
+![center](img/trav-sales-cluster.png)
+
 
 ---
 
