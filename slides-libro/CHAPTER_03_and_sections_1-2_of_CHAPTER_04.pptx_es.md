@@ -192,7 +192,7 @@ función Búsqueda-Árbol(problema, estrategia) devuelve una solución, o falla
 
 # Ejemplo de búsqueda en árbol
 
-![Ejemplo de búsqueda en árbol](https://i.imgur.com/8m0n3VQ.png)
+![Ejemplo de búsqueda en árbol](./img/busqueda-arbol.png)
 
 ---
 
@@ -203,7 +203,12 @@ función Búsqueda-Árbol(problema, estrategia) devuelve una solución, o falla
   - incluye padre, hijos, profundidad, costo del camino g(x)
 - ¡Los estados no tienen padres, hijos, profundidad ni costo del camino!
 
-![Estado vs Nodo](https://i.imgur.com/8m0n3VQ.png)
+---
+
+# Nodo vs estaos
+
+![Ensamblaje robótico](./img/nodo-estado.png)
+
 
 La función Expandir crea nuevos nodos, completando los diversos campos y usando la FunciónSucesora del problema para crear los estados correspondientes.
 
@@ -403,23 +408,23 @@ Implementación:
 - frontera es una cola ordenada en orden decreciente de deseabilidad
 
 Casos especiales:
-1. búsqueda voraz
+1. búsqueda avara
 2. búsqueda A*
 
 ---
 
-# Búsqueda voraz
+# Búsqueda avara
 
 Función de evaluación h(n) (heurística) = estimación del costo desde n hasta la meta más cercana
 Por ejemplo, hDLR(n) = distancia en línea recta desde n hasta Bucarest
 
-La búsqueda voraz expande el nodo que parece estar más cerca de la meta
+La búsqueda avara expande el nodo que parece estar más cerca de la meta
 
-![Ejemplo de búsqueda voraz](https://i.imgur.com/8m0n3VQ.png)
+![Ejemplo de búsqueda avara](https://i.imgur.com/8m0n3VQ.png)
 
 ---
 
-# Propiedades de la búsqueda voraz
+# Propiedades de la búsqueda avara
 
 - Completa: No–puede quedar atrapada en bucles, por ejemplo, Iasi → Neamt → Iasi → Neamt →
   - Completa en espacio finito con verificación de estados repetidos

@@ -206,6 +206,49 @@ La ingeniería de prompt no solo se trata de diseñar y desarrollar prompts. Aba
 
 Podemos encontrar una guía de ingeniería de prompts de código abierto [aquí](https://www.promptingguide.ai/es)
 
+```mermaid 
+graph TB;
+    %% Actors
+    API_User["API User -Developer/Engineer-"] --> |Integrates| Application
+    LLM_API_Provider["LLM API Provider"] --> |Provides| LLM_API
+    Application --> |Delivers| End_User["End-User"]
+    
+    %% Entities
+    LLM_API["LLM API"] --> |Processes| Response
+    Application --> |Sends Input| LLM_API
+    API_User --> |Prepares Input Prompt| Application
+    Application --> |Sends Response| End_User
+    Response --> |Received by| Application
+    
+    %% Environment/Infrastructure
+    LLM_API --> |Runs on| Environment["Environment/Infrastructure"]
+
+    %% Use Cases
+    subgraph Use_Cases["Use Cases"]
+        Text_Generation["Text Generation"] --> |Uses| LLM_API
+        Code_Generation["Code Generation"] --> |Uses| LLM_API
+        Content_Summarization["Content Summarization"] --> |Uses| LLM_API
+        Chatbot_Integration["Chatbot Integration"] --> |Uses| LLM_API
+        Data_Extraction["Data Extraction"] --> |Uses| LLM_API
+        Language_Translation["Language Translation"] --> |Uses| LLM_API
+    end
+
+    %% Process Flow
+    subgraph Process_Flow["Process Flow"]
+        Integration["Integration"] --> |Step 1| Input_Preparation["Input Preparation"]
+        Input_Preparation --> |Step 2| API_Call["API Call"]
+        API_Call --> |Step 3| LLM_Processing["LLM Processing"]
+        LLM_Processing --> |Step 4| Response_Handling["Response Handling"]
+        Response_Handling --> |Step 5| Output_Delivery["Output Delivery"]
+    end
+
+    %% Relationships
+    API_User -.-> |Interacts with| Process_Flow
+    Process_Flow -.-> |Maps to Scenarios in| Use_Cases
+    LLM_API -.-> |Facilitates| Use_Cases
+    Application -.-> |Facilitates| Use_Cases
+```
+
 Objetivo: Implementa los distintos conceptos de ingeniería de prompts utilizando un modelo abierto disponible en Ollama que pueda correr en tu máquina.
 
 
