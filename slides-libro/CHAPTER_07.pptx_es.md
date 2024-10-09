@@ -1,3 +1,16 @@
+---
+marp: true
+theme: gaia
+paginate: true
+---
+
+<style>
+img[alt~="center"] {
+  display: block;
+  margin: 0 auto;
+}
+</style>
+
 
 # Agentes lógicos
 ## Capítulo 7

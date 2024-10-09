@@ -1,3 +1,15 @@
+---
+marp: true
+theme: gaia
+paginate: true
+---
+
+<style>
+img[alt~="center"] {
+  display: block;
+  margin: 0 auto;
+}
+</style>
 
 # Búsqueda Adversarial y Juegos
 ## Capítulo 6
@@ -305,15 +317,3 @@ si el estado es un nodo de azar entonces
 - Algoritmo alfa-beta: mayor eficiencia al eliminar subárboles
 - Función de evaluación: una heurística que estima la utilidad del estado
 - Búsqueda de árbol Monte Carlo (MCTS): sin heurística, juega el juego hasta el final con reglas y repite múltiples veces para determinar movimientos óptimos durante el playout
-
-# Notas sobre la traducción
-
-- Se mantuvo el término "minimax" sin traducir, ya que es ampliamente utilizado en español en el contexto de teoría de juegos.
-- "Poda α–β" es la traducción estándar para "α–β pruning" en español.
-- "Búsqueda de árbol Monte Carlo" es la traducción común para "Monte Carlo Tree Search" en español.
-- Se mantuvo el término "playout" sin traducir, ya que es utilizado frecuentemente en español en el contexto de MCTS.
-- "Retropropagación" es la traducción estándar para "back-propagation" en este contexto.
-
-La traducción de términos técnicos específicos de la teoría de juegos y la inteligencia artificial presentó algunos desafíos. Se buscó mantener un equilibrio entre la precisión técnica y la naturalidad en español argentino, utilizando términos reconocibles en el ámbito académico y profesional de Argentina.
-
-```

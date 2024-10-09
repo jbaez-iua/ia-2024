@@ -1,13 +1,19 @@
-
 ---
 marp: true
-theme: default
+theme: gaia
 paginate: true
 ---
 
-# Inferencia en Lógica de Primer Orden
+<style>
+img[alt~="center"] {
+  display: block;
+  margin: 0 auto;
+}
+</style>
 
-Capítulo 9
+## Capítulo 9
+
+# Inferencia en Lógica de Primer Orden
 
 ---
 
